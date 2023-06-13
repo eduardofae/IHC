@@ -18,7 +18,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor light;
+    private Sensor grav;
     private TextView lightValue;
+    private TextView gravValue;
     private Button getGPSBtn;
 
     @Override
@@ -30,7 +32,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Sensor sensor = event.sensor;
         if(sensor.getType() == Sensor.TYPE_LIGHT)
         {
-            lightValue.setText("Light Intensity: " + event.values[0]);
+            lightValue.setText("Light Intensity:\n" + event.values[0]);
+        }
+
+        if(sensor.getType() == Sensor.TYPE_GRAVITY)
+        {
+            gravValue.setText("Gravity:\n" + event.values[0]);
         }
     }
 
@@ -51,9 +58,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             lightValue.setText("Light sensor not supported");
         }
 
+        gravValue = (TextView)findViewById(R.id.grav);
+        grav = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
+        if(grav != null)
+        {
+            sensorManager.registerListener(MainActivity.this, grav,
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }else
+        {
+            gravValue.setText("Ambient Temperature sensor not supported");
+        }
+
         getGPSBtn = (Button) findViewById(R.id.getGPSBtn);
         ActivityCompat.requestPermissions(MainActivity.this, new
-                String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
+                String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 123);
         getGPSBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 if (l != null) {
                     double lat = l.getLatitude();
                     double longi = l.getLongitude();
-                    Toast.makeText(getApplicationContext(), "LAT: " + lat + "LONG: " +
+                    Toast.makeText(getApplicationContext(), "LAT: " + lat + "\nLONG: " +
                             longi, Toast.LENGTH_LONG).show();
                 }
             }

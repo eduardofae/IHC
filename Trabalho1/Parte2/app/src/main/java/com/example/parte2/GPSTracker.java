@@ -19,7 +19,7 @@ public class GPSTracker implements LocationListener {
 
     public Location getLocation(){
         if(ContextCompat.checkSelfPermission(context,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             Toast.makeText(context, "Permission not granted", Toast.LENGTH_LONG).show();
             return null;
         }
