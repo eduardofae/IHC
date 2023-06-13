@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Atividade2</string>
+    <string name="Helper">Digite uma mensagem</string>
+    <string name="Button">Enviar</string>
+</resources>

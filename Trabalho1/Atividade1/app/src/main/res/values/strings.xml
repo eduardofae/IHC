@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Atividade1</string>
+    <string name="Helper">Número a ser somado</string>
+    <string name="Button">Somar</string>
+</resources>
